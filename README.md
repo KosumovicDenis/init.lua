@@ -1,1 +1,3 @@
-# init.luaMy personal nvim configuration
+# init.luaMy
+
+personal nvim configuration
