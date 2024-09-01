@@ -29,8 +29,9 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-                --"rust_analyzer",
-                --"gopls",
+                "tailwindcss",
+                "volar",
+                "tsserver",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -38,22 +39,24 @@ return {
                         capabilities = capabilities
                     }
                 end,
+                ["tsserver"] = function ()
+                    local mason_registry = require('mason-registry')
+                    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
 
-                zls = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-                        settings = {
-                            zls = {
-                                enable_inlay_hints = true,
-                                enable_snippets = true,
-                                warn_style = true,
+                    local lspconfig = require('lspconfig')
+
+                    lspconfig.tsserver.setup {
+                        init_options = {
+                            plugins = {
+                                {
+                                    name = '@vue/typescript-plugin',
+                                    location = vue_language_server_path,
+                                    languages = { 'vue' },
+                                },
                             },
                         },
-                    })
-                    vim.g.zig_fmt_parse_errors = 0
-                    vim.g.zig_fmt_autosave = 0
-
+                        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                    }
                 end,
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
