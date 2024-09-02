@@ -10,9 +10,9 @@ return {
 
     {
         "erikbackman/brightburn.vim",
-	config = function ()
-		ColorMyPencils("tokyonight")
-	end
+        config = function ()
+            ColorMyPencils("rose-pine-moon")
+        end
     },
 
     {
@@ -49,7 +49,7 @@ return {
                 palette_overrides = {},
                 overrides = {},
                 dim_inactive = false,
-                transparent_mode = false,
+                transparent_mode = true,
             })
         end,
     },
