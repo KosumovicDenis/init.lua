@@ -11,7 +11,7 @@ return {
     {
         "erikbackman/brightburn.vim",
         config = function ()
-            ColorMyPencils("rose-pine-moon")
+            ColorMyPencils("tokyonight")
         end
     },
 
