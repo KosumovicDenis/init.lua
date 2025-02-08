@@ -1,6 +1,6 @@
 return {
 	'neovim/nvim-lspconfig',
-    --cmd = { 'LspInfo', 'LspLog', 'LspRestart', 'LspStart', 'LspStop' },
+	--cmd = { 'LspInfo', 'LspLog', 'LspRestart', 'LspStart', 'LspStop' },
 
 	dependencies = {
 		'williamboman/mason.nvim',
@@ -34,8 +34,6 @@ return {
                 'ts_ls',
                 'rust_analyzer',
                 'gopls',
-                'clangd',
-                'jdtls',
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -75,10 +73,6 @@ return {
                             }
                         }
                     }
-                end,
-                ['jdtls'] = function()
-                    -- init.lua
-                    require'lspconfig'.jdtls.setup{}
                 end,
                 ['gopls'] = function ()
                     local lspconfig = require('lspconfig')
