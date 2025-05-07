@@ -52,6 +52,15 @@ return {
             },
             filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
         })
+        vim.lsp.config('rust_analyzer', {
+            settings = {
+                ['rust-analyzer'] = {
+                    diagnostics = {
+                        enable = false;
+                    }
+                }
+            }
+        })
         -- mason-lspconfig only enables servers listed in its registry.
         -- Since 'gdscript' isn't included, we need to enable it up manually.
         -- even if listed in `ensure_installed`.
