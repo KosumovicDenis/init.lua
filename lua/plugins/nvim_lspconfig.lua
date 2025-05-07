@@ -10,8 +10,6 @@ return {
 		'hrsh7th/cmp-path',
 		'hrsh7th/cmp-cmdline',
 		'hrsh7th/nvim-cmp',
-		'L3MON4D3/LuaSnip',
-		'saadparwaiz1/cmp_luasnip',
 		'j-hui/fidget.nvim',
 	},
 
@@ -25,76 +23,59 @@ return {
             cmp_lsp.default_capabilities())
 
         require('fidget').setup({})
+
+        vim.lsp.config('*', {
+            capabilities = capabilities
+        })
+        vim.lsp.config('lua_ls', {
+            settings = {
+                Lua = {
+                    runtime = { version = 'Lua 5.1' },
+                    diagnostics = {
+                        globals = { 'bit', 'vim', 'it', 'describe', 'before_each', 'after_each' },
+                    },
+                },
+            },
+        })
+        vim.lsp.config('clangd', {
+            root_markers = { '.clang-format', 'compile_commands.json' },
+        })
+        vim.lsp.config('ts_ls', {
+            init_options = {
+                plugins = {
+                    {
+                        name = '@vue/typescript-plugin',
+                        location = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server"),
+                        languages = { 'vue' },
+                    },
+                },
+            },
+            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
+        })
+        -- mason-lspconfig only enables servers listed in its registry.
+        -- Since 'gdscript' isn't included, we need to enable it up manually.
+        -- even if listed in `ensure_installed`.
+        vim.lsp.enable('gdscript')
+
         require('mason').setup()
         require('mason-lspconfig').setup({
-            ensure_installed = {
-                'lua_ls',
-                'tailwindcss',
-                'volar',
-                'ts_ls',
-                'rust_analyzer',
-                'gopls',
-                'clangd',
-                'jdtls',
-            },
-            handlers = {
-                function(server_name) -- default handler (optional)
-                    require('lspconfig')[server_name].setup {
-                        capabilities = capabilities
-                    }
-                end,
-                ['ts_ls'] = function ()
-                    local mason_registry = require('mason-registry')
-                    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
-
-                    local lspconfig = require('lspconfig')
-
-                    lspconfig.ts_ls.setup {
-                        init_options = {
-                            plugins = {
-                                {
-                                    name = '@vue/typescript-plugin',
-                                    location = vue_language_server_path,
-                                    languages = { 'vue' },
-                                },
-                            },
-                        },
-                        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                    }
-                end,
-                ['lua_ls'] = function()
-                    local lspconfig = require('lspconfig')
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = 'Lua 5.1' },
-                                diagnostics = {
-                                    globals = { 'bit', 'vim', 'it', 'describe', 'before_each', 'after_each' },
-                                }
-                            }
-                        }
-                    }
-                end,
-                ['jdtls'] = function()
-                    -- init.lua
-                    require'lspconfig'.jdtls.setup{}
-                end,
-                ['gopls'] = function ()
-                    local lspconfig = require('lspconfig')
-                    lspconfig.gopls.setup{}
-                end,
+            require("mason-lspconfig").setup {
+                ensure_installed = {
+                    'lua_ls',
+                    'tailwindcss',
+                    'volar',
+                    'ts_ls',
+                    'rust_analyzer',
+                    'gopls',
+                    'clangd',
+                    'jdtls',
+                }
             }
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
         cmp.setup({
-            snippet = {
-                expand = function(args)
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                end,
-            },
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
@@ -103,14 +84,13 @@ return {
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'luasnip' }, -- For luasnip users.
             }, {
                     { name = 'buffer' },
                 })
         })
 
         vim.diagnostic.config({
-            -- update_in_insert = true,
+            update_in_insert = true,
             float = {
                 focusable = false,
                 style = 'minimal',
