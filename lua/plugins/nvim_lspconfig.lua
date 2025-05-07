@@ -68,17 +68,15 @@ return {
 
         require('mason').setup()
         require('mason-lspconfig').setup({
-            require("mason-lspconfig").setup {
-                ensure_installed = {
-                    'lua_ls',
-                    'tailwindcss',
-                    'volar',
-                    'ts_ls',
-                    'rust_analyzer',
-                    'gopls',
-                    'clangd',
-                    'jdtls',
-                }
+            ensure_installed = {
+                'lua_ls',
+                'tailwindcss',
+                'volar',
+                'ts_ls',
+                'rust_analyzer',
+                'gopls',
+                'clangd',
+                'jdtls',
             }
         })
 
