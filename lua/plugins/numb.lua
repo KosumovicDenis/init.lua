@@ -1,4 +1,5 @@
-return {
+return
+{
     {
         'nacro90/numb.nvim',
         config = function()
