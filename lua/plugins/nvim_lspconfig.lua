@@ -72,7 +72,7 @@ return
             ensure_installed = {
                 'lua_ls',
                 'tailwindcss',
-                'volar',
+                'vue_ls',
                 'ts_ls',
                 'rust_analyzer',
                 'gopls',
