@@ -1,13 +1,25 @@
 function ColorMyPencils(color)
-    color = color or "rose-pine"
+    color = color or "nord"
     vim.cmd.colorscheme(color)
 
-    --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    --vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+    --[[
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+    vim.api.nvim_set_hl(0, "VertSplit", { bg = "none" })
+    ]]--
+    vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 end
 
 return
 {
+    {
+        "nordtheme/vim",
+        name = "nord",
+        config = function()
+        end
+    },
     {
         "rebelot/kanagawa.nvim",
         config = function ()
@@ -53,10 +65,9 @@ return
             })
 
             -- setup must be called before loading
-            ColorMyPencils("kanagawa")
+            ColorMyPencils("nord")
         end
     },
-
     {
         "rose-pine/neovim",
         name = "rose-pine",
