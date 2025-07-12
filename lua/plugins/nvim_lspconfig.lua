@@ -72,7 +72,7 @@ return
             vim.lsp.config('zls', {
                 settings = {
                     ['zls'] = {
-                        zig_exe_path = '/home/kosu/zig/zig'  -- Adjust path as needed
+                        zig_exe_path = '/home/kosu/.local/bin/zls'  -- Adjust path as needed
                     }
                 }
             })
