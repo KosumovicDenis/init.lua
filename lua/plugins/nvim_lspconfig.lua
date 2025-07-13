@@ -55,10 +55,8 @@ return
             })
             vim.lsp.config('rust_analyzer', {
                 settings = {
-                    ['rust-analyzer'] = {
-                        diagnostics = {
-                            enable = false;
-                        }
+                    diagnostics = {
+                        enable = false;
                     }
                 }
             })
@@ -68,14 +66,14 @@ return
             vim.lsp.enable('gdscript')
 
             -- zig
-            vim.lsp.enable('zls')
             vim.lsp.config('zls', {
-                settings = {
-                    ['zls'] = {
-                        zig_exe_path = '/home/kosu/.local/bin/zls'
-                    }
+            cmd = { '/home/kosu/.local/bin/zls' },
+            settings = {
+                zls = {
+                    zig_exe_path = '/home/kosu/zig/zig',
                 }
-            })
+            }
+        })
 
             require('mason').setup()
             require('mason-lspconfig').setup({
