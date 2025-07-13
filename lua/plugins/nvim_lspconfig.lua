@@ -1,7 +1,7 @@
 return
     {
         'neovim/nvim-lspconfig',
-        cmd = { 'LspInfo', 'LspLog', 'LspRestart', 'LspStart', 'LspStop' },
+        --cmd = { 'LspInfo', 'LspLog', 'LspRestart', 'LspStart', 'LspStop' },
 
         dependencies = {
             'williamboman/mason.nvim',
@@ -72,7 +72,7 @@ return
             vim.lsp.config('zls', {
                 settings = {
                     ['zls'] = {
-                        zig_exe_path = '/home/kosu/.local/bin/zls'  -- Adjust path as needed
+                        zig_exe_path = '/home/kosu/.local/bin/zls'
                     }
                 }
             })
@@ -108,9 +108,10 @@ return
             })
 
             vim.diagnostic.config({
+                virtual_text = true,
                 update_in_insert = true,
                 float = {
-                    focusable = false,
+                    focusable = true,
                     style = 'minimal',
                     border = 'rounded',
                     source = 'always',
