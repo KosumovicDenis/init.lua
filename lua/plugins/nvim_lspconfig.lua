@@ -67,13 +67,13 @@ return
 
             -- zig
             vim.lsp.config('zls', {
-            cmd = { '/home/kosu/.local/bin/zls' },
-            settings = {
-                zls = {
-                    zig_exe_path = '/home/kosu/zig/zig',
+                cmd = { '/home/kosu/.local/bin/zls' },
+                settings = {
+                    zls = {
+                        zig_exe_path = '/home/kosu/zig/zig',
+                    }
                 }
-            }
-        })
+            })
 
             require('mason').setup()
             require('mason-lspconfig').setup({
@@ -117,5 +117,7 @@ return
                     prefix = '',
                 },
             })
+            vim.keymap.set('n', '<leader>da', vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "LSP Code Action" })
+            vim.keymap.set('v', '<leader>da', vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "LSP Code Action" })
         end
     }
